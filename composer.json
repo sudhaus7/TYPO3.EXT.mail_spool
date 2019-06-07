@@ -1,5 +1,5 @@
 {
-    "name": "r3h6/mail-spool",
+    "name": "sudhaus7/mail-spool",
     "type": "typo3-cms-extension",
     "description": "Integrates swiftmailer spool transport for TYPO3.",
     "keywords": [
@@ -9,26 +9,26 @@
         "spool",
         "swiftmailer"
     ],
-    "homepage": "https://github.com/r3h6/TYPO3.EXT.mail_spool",
+    "homepage": "https://github.com/sudhaus7/TYPO3.EXT.mail_spool",
     "support": {
-        "issues": "https://github.com/r3h6/TYPO3.EXT.mail_spool/issues"
+        "issues": "https://github.com/sudhaus7/TYPO3.EXT.mail_spool/issues"
     },
     "license": "GPL-3.0+",
     "require": {
-        "typo3/cms": "^6.2.14 || ^7.6.0 || ^8.7.0"
+        "typo3/cms-core": "^9.5.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^4.8 || ^5.0",
+        "phpunit/phpunit": "^6.0",
         "nimut/testing-framework": "^1.0"
     },
     "autoload": {
         "psr-4": {
-            "R3H6\\MailSpool\\": "Classes"
+            "SUDHAUS7\\MailSpool\\": "Classes"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "R3H6\\MailSpool\\Tests\\": "Tests",
+            "SUDHAUS7\\MailSpool\\Tests\\": "Tests",
             "TYPO3\\CMS\\Core\\Tests\\": ".Build/vendor/typo3/cms/typo3/sysext/core/Tests/"
         }
     },

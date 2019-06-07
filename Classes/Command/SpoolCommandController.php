@@ -1,6 +1,6 @@
 <?php
 
-namespace R3H6\MailSpool\Command;
+namespace SUDHAUS7\MailSpool\Command;
 
 /*                                                                        *
  * This script is part of the TYPO3 project - inspiring people to share!  *
@@ -42,7 +42,7 @@ class SpoolCommandController extends CommandController
         $mailer = $this->getMailer();
 
         $transport = $mailer->getTransport();
-        if ($transport instanceof \R3H6\MailSpool\Mail\SpoolTransport) {
+        if ($transport instanceof \SUDHAUS7\MailSpool\Mail\SpoolTransport) {
             $spool = $transport->getSpool();
             if ($spool instanceof \Swift_ConfigurableSpool) {
                 $spool->setMessageLimit($messageLimit);
@@ -91,7 +91,7 @@ class SpoolCommandController extends CommandController
      */
     protected function getMailer()
     {
-        return GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\Mailer');
+        return GeneralUtility::makeInstance(Mailer::class);
     }
 
     /**

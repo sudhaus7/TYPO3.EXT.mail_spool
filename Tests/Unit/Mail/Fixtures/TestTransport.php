@@ -1,6 +1,6 @@
 <?php
 
-namespace R3H6\MailSpool\Tests\Unit\Mail\Fixtures;
+namespace SUDHAUS7\MailSpool\Tests\Unit\Mail\Fixtures;
 
 /*                                                                        *
  * This script is part of the TYPO3 project - inspiring people to share!  *

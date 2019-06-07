@@ -22,7 +22,7 @@ Installation
 Through `TER <https://typo3.org/extensions/repository/view/mail_spool/>`_ or with `composer <https://composer.typo3.org/satis.html#!/mail-spool>`_ (typo3-ter/mail-spool).
 
 .. warning::
-   After installation this extension overwrites in the file "ext_localconf" the mail transport configuration to ``R3H6\MailSpool\Mail\SpoolTransport``!
+   After installation this extension overwrites in the file "ext_localconf" the mail transport configuration to ``SUDHAUS7\MailSpool\Mail\SpoolTransport``!
 
 
 Configuration

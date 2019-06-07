@@ -1,6 +1,6 @@
 <?php
 
-namespace R3H6\MailSpool\Tests\Unit\Mail;
+namespace SUDHAUS7\MailSpool\Tests\Unit\Mail;
 
 /*                                                                        *
  * This script is part of the TYPO3 project - inspiring people to share!  *
@@ -23,7 +23,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class SpoolTransportTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
     /**
-     * @var \R3H6\MailSpool\Mail\SpoolTransport
+     * @var \SUDHAUS7\MailSpool\Mail\SpoolTransport
      */
     protected $subject;
 
@@ -35,12 +35,12 @@ class SpoolTransportTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
         GeneralUtility::addInstance('TYPO3\\CMS\\Extbase\\Object\\Container\\ClassInfoCache', $classInfoCacheMock);
 
         $configuration = array(
-            'transport' => 'R3H6\\MailSpool\\Mail\\SpoolTransport',
-            'spool' => 'R3H6\\MailSpool\\Tests\\Unit\\Mail\\Fixtures\\TestSpool',
-            'transport_real' => 'R3H6\\MailSpool\\Tests\\Unit\\Mail\\Fixtures\\TestTransport',
+            'transport' => 'SUDHAUS7\\MailSpool\\Mail\\SpoolTransport',
+            'spool' => 'SUDHAUS7\\MailSpool\\Tests\\Unit\\Mail\\Fixtures\\TestSpool',
+            'transport_real' => 'SUDHAUS7\\MailSpool\\Tests\\Unit\\Mail\\Fixtures\\TestTransport',
             'do_not_spool_syslog_messages' => '1',
         );
-        $this->subject =  $this->getMock('R3H6\\MailSpool\\Mail\\SpoolTransport', array('getMailTransport'), array($configuration), '', true);
+        $this->subject =  $this->getMock('SUDHAUS7\\MailSpool\\Mail\\SpoolTransport', array('getMailTransport'), array($configuration), '', true);
     }
 
     public function tearDown()
@@ -53,8 +53,8 @@ class SpoolTransportTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function getRealTransportReturnsTransport()
     {
-        $this->assertInstanceOf('R3H6\\MailSpool\\Tests\\Unit\\Mail\\Fixtures\\TestTransport', $this->subject->getRealTransport());
-        $this->assertSame('R3H6\\MailSpool\\Mail\\SpoolTransport', $GLOBALS['TYPO3_CONF_VARS']['MAIL']['transport']);
+        $this->assertInstanceOf('SUDHAUS7\\MailSpool\\Tests\\Unit\\Mail\\Fixtures\\TestTransport', $this->subject->getRealTransport());
+        $this->assertSame('SUDHAUS7\\MailSpool\\Mail\\SpoolTransport', $GLOBALS['TYPO3_CONF_VARS']['MAIL']['transport']);
     }
 
     /**

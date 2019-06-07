@@ -5,7 +5,7 @@ if (!defined('TYPO3_MODE')) {
 }
 
 if (TYPO3_MODE === 'BE') {
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] = 'R3H6\\MailSpool\\Command\\SpoolCommandController';
+    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] = 'SUDHAUS7\\MailSpool\\Command\\SpoolCommandController';
 }
 
 // Merge our configuration with the core mail configuration.
@@ -17,5 +17,5 @@ if (!empty($GLOBALS['TYPO3_CONF_VARS']['MAIL']['spool'])) {
     if (empty($GLOBALS['TYPO3_CONF_VARS']['MAIL']['transport_real'])) {
         $GLOBALS['TYPO3_CONF_VARS']['MAIL']['transport_real'] = $GLOBALS['TYPO3_CONF_VARS']['MAIL']['transport'];
     }
-    $GLOBALS['TYPO3_CONF_VARS']['MAIL']['transport'] = 'R3H6\\MailSpool\\Mail\\SpoolTransport';
+    $GLOBALS['TYPO3_CONF_VARS']['MAIL']['transport'] = \SUDHAUS7\MailSpool\Mail\SpoolTransport::class;
 }

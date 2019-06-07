@@ -1,6 +1,6 @@
 <?php
 
-namespace R3H6\MailSpool\Tests\Unit\Mail;
+namespace SUDHAUS7\MailSpool\Tests\Unit\Mail;
 
 /*                                                                        *
  * This script is part of the TYPO3 project - inspiring people to share!  *
@@ -39,7 +39,7 @@ class LocalConfigurationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
         require GeneralUtility::getFileAbsFileName('EXT:mail_spool/ext_localconf.php');
 
-        $this->assertSame('R3H6\\MailSpool\\Mail\\SpoolTransport', $GLOBALS['TYPO3_CONF_VARS']['MAIL']['transport']);
+        $this->assertSame('SUDHAUS7\\MailSpool\\Mail\\SpoolTransport', $GLOBALS['TYPO3_CONF_VARS']['MAIL']['transport']);
         $this->assertSame('smtp', $GLOBALS['TYPO3_CONF_VARS']['MAIL']['transport_real']);
     }
 

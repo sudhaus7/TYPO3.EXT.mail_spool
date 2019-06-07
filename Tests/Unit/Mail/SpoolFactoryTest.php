@@ -1,6 +1,6 @@
 <?php
 
-namespace R3H6\MailSpool\Tests\Unit\Mail;
+namespace SUDHAUS7\MailSpool\Tests\Unit\Mail;
 
 /*                                                                        *
  * This script is part of the TYPO3 project - inspiring people to share!  *
@@ -15,7 +15,7 @@ namespace R3H6\MailSpool\Tests\Unit\Mail;
  * Public License for more details.                                       *
  *                                                                        */
 
-use R3H6\MailSpool\Mail\SpoolFactory;
+use SUDHAUS7\MailSpool\Mail\SpoolFactory;
 
 /**
  * Unit test for the SpoolFactory.
@@ -23,13 +23,13 @@ use R3H6\MailSpool\Mail\SpoolFactory;
 class SpoolFactoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
     /**
-     * @var \R3H6\MailSpool\Mail\SpoolFactory
+     * @var \SUDHAUS7\MailSpool\Mail\SpoolFactory
      */
     protected $subject;
 
     public function setUp()
     {
-        $this->subject = $this->getMock('R3H6\\MailSpool\\Mail\\SpoolFactory', array('__destruct'));
+        $this->subject = $this->getMock('SUDHAUS7\\MailSpool\\Mail\\SpoolFactory', array('__destruct'));
     }
 
     public function tearDown()
@@ -80,12 +80,12 @@ class SpoolFactoryTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     public function getCustomSpool()
     {
         $configuration = array(
-            'spool' => 'R3H6\\MailSpool\\Tests\\Unit\\Mail\\Fixtures\TestSpool',
+            'spool' => 'SUDHAUS7\\MailSpool\\Tests\\Unit\\Mail\\Fixtures\TestSpool',
             'spool_file_path' => '',
         );
 
         /** @var \Swift_FileSpool $spool */
         $spool = $this->subject->get($configuration);
-        $this->assertInstanceOf('R3H6\\MailSpool\\Tests\\Unit\\Mail\\Fixtures\TestSpool', $spool);
+        $this->assertInstanceOf('SUDHAUS7\\MailSpool\\Tests\\Unit\\Mail\\Fixtures\TestSpool', $spool);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace R3H6\MailSpool\Mail;
+namespace SUDHAUS7\MailSpool\Mail;
 
 /*                                                                        *
  * This script is part of the TYPO3 project - inspiring people to share!  *
@@ -98,10 +98,10 @@ class SpoolTransport extends \Swift_SpoolTransport
     /**
      * [getSpoolFactory description].
      *
-     * @return \R3H6\MailSpool\Mail\SpoolFactory
+     * @return \SUDHAUS7\MailSpool\Mail\SpoolFactory
      */
     protected function getSpoolFactory()
     {
-        return GeneralUtility::makeInstance('R3H6\\MailSpool\\Mail\\SpoolFactory');
+        return GeneralUtility::makeInstance('SUDHAUS7\\MailSpool\\Mail\\SpoolFactory');
     }
 }

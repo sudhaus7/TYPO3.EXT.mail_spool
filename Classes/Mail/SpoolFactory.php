@@ -1,6 +1,6 @@
 <?php
 
-namespace R3H6\MailSpool\Mail;
+namespace SUDHAUS7\MailSpool\Mail;
 
 /*                                                                        *
  * This script is part of the TYPO3 project - inspiring people to share!  *
@@ -75,7 +75,7 @@ class SpoolFactory implements \TYPO3\CMS\Core\SingletonInterface
             $mailer = $this->getMailer();
             $transport = $mailer->getTransport();
 
-            if ($transport instanceof \R3H6\MailSpool\Mail\SpoolTransport) {
+            if ($transport instanceof \SUDHAUS7\MailSpool\Mail\SpoolTransport) {
                 $failedRecipients = array();
                 try {
                     $sent = $this->memorySpool->flushQueue($transport->getRealTransport(), $failedRecipients);

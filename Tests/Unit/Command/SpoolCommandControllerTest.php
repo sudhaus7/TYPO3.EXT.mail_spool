@@ -1,6 +1,6 @@
 <?php
 
-namespace R3H6\MailSpool\Tests\Unit\Command;
+namespace SUDHAUS7\MailSpool\Tests\Unit\Command;
 
 /*                                                                        *
  * This script is part of the TYPO3 project - inspiring people to share!  *
@@ -21,7 +21,7 @@ namespace R3H6\MailSpool\Tests\Unit\Command;
 class SpoolCommandControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 {
     /**
-     * @var \R3H6\MailSpool\Command\SpoolCommandController
+     * @var \SUDHAUS7\MailSpool\Command\SpoolCommandController
      */
     protected $subject;
 
@@ -32,7 +32,7 @@ class SpoolCommandControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
     public function setUp()
     {
-        $this->subject = $this->getMock('R3H6\\MailSpool\\Command\\SpoolCommandController', array('outputLine', 'getMailer'), array(), '', false);
+        $this->subject = $this->getMock('SUDHAUS7\\MailSpool\\Command\\SpoolCommandController', array('outputLine', 'getMailer'), array(), '', false);
         $this->mailer = $this->getMock('TYPO3\\CMS\\Core\\Mail\\Mailer', array('getTransport'), array(), '', false);
 
         $this->subject
@@ -74,7 +74,7 @@ class SpoolCommandControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function sendCommandFlushsSpool()
     {
-        $realTransportMock = $this->getMock('R3H6\\MailSpool\\Tests\\Unit\\Mail\\Fixtures\\TestTransport', array(), array(), '', false);
+        $realTransportMock = $this->getMock('SUDHAUS7\\MailSpool\\Tests\\Unit\\Mail\\Fixtures\\TestTransport', array(), array(), '', false);
 
         $spoolMock = $this->getMock('Swift_FileSpool', array('setMessageLimit', 'setTimeLimit', 'recover', 'flushQueue'), array(), '', false);
         $spoolMock
@@ -95,7 +95,7 @@ class SpoolCommandControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
             ->with($this->equalTo($realTransportMock))
             ->will($this->returnValue(9));
 
-        $transportMock = $this->getMock('R3H6\\MailSpool\\Mail\\SpoolTransport', array('getSpool', 'getRealTransport'), array(), '', false);
+        $transportMock = $this->getMock('SUDHAUS7\\MailSpool\\Mail\\SpoolTransport', array('getSpool', 'getRealTransport'), array(), '', false);
         $transportMock
             ->expects($this->any())
             ->method('getSpool')

@@ -8,4 +8,4 @@ spool_file_path = uploads/tx_mailspool/
 transport_real =
 
 # cat=MAIL//4; type=boolean; label=LLL:EXT:mail_spool/Resources/Private/Language/locallang_be.xlf:configuration.do_not_spool_syslog_messages
-do_not_spool_syslog_messages = 0
+do_not_spool_syslog_messages = 1
