@@ -4,9 +4,6 @@ if (!defined('TYPO3_MODE')) {
     die('Access denied.');
 }
 
-if (TYPO3_MODE === 'BE') {
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['extbase']['commandControllers'][] = 'SUDHAUS7\\MailSpool\\Command\\SpoolCommandController';
-}
 
 // Merge our configuration with the core mail configuration.
 $GLOBALS['TYPO3_CONF_VARS']['MAIL'] += (array) unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf'][$_EXTKEY]);

@@ -15,6 +15,8 @@ namespace SUDHAUS7\MailSpool\Mail;
  * Public License for more details.                                       *
  *                                                                        */
 
+use TYPO3\CMS\Core\Core\Environment;
+use TYPO3\CMS\Core\Mail\Mailer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -43,7 +45,12 @@ class SpoolFactory implements \TYPO3\CMS\Core\SingletonInterface
     {
         switch ($configuration['spool']) {
             case self::SPOOL_FILE:
-                $path = GeneralUtility::getFileAbsFileName($configuration['spool_file_path']);
+                //$path = GeneralUtility::getFileAbsFileName($configuration['spool_file_path']);
+                $path = Environment::getVarPath().'/'.$configuration['spool_file_path'];
+                
+                if (!is_dir($path)) {
+                    GeneralUtility::mkdir($path);
+                }
                 $spool = new \Swift_FileSpool($path);
                 break;
             case self::SPOOL_MEMORY:
@@ -64,10 +71,11 @@ class SpoolFactory implements \TYPO3\CMS\Core\SingletonInterface
         return $spool;
     }
 
+
     /**
      * Flushs the memory queue.
      *
-     * @return  void
+     * @throws \Swift_TransportException
      */
     protected function flushMemoryQueue()
     {
@@ -75,15 +83,12 @@ class SpoolFactory implements \TYPO3\CMS\Core\SingletonInterface
             $mailer = $this->getMailer();
             $transport = $mailer->getTransport();
 
-            if ($transport instanceof \SUDHAUS7\MailSpool\Mail\SpoolTransport) {
+            if ($transport instanceof SpoolTransport) {
                 $failedRecipients = array();
-                try {
-                    $sent = $this->memorySpool->flushQueue($transport->getRealTransport(), $failedRecipients);
-                    if (!$sent) {
-                        throw new \RuntimeException('No e-mail has been sent', 1476304931);
-                    }
-                } catch (\Exception $exception) {
-                    \TYPO3\CMS\Core\Utility\GeneralUtility::sysLog($exception->getMessage(), 'mail_spool', \TYPO3\CMS\Core\Utility\GeneralUtility::SYSLOG_SEVERITY_ERROR);
+             
+                $sent = $this->memorySpool->flushQueue($transport->getRealTransport(), $failedRecipients);
+                if (!$sent) {
+                    throw new \RuntimeException('No e-mail has been sent', 1476304931);
                 }
             }
         }
@@ -96,7 +101,7 @@ class SpoolFactory implements \TYPO3\CMS\Core\SingletonInterface
      */
     protected function getMailer()
     {
-        return GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\Mailer');
+        return GeneralUtility::makeInstance(Mailer::class);
     }
 
     /**

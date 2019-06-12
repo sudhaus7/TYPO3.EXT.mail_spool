@@ -15,6 +15,7 @@ namespace SUDHAUS7\MailSpool\Mail;
  * Public License for more details.                                       *
  *                                                                        */
 
+use TYPO3\CMS\Core\Mail\Mailer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
@@ -43,10 +44,12 @@ class SpoolTransport extends \Swift_SpoolTransport
         parent::__construct($spool);
     }
 
+    
     /**
      * Get real transport for sending messages.
      *
      * @return \Swift_Transport
+     * @throws \Exception
      */
     public function getRealTransport()
     {
@@ -68,6 +71,7 @@ class SpoolTransport extends \Swift_SpoolTransport
      */
     public function send(\Swift_Mime_Message $message, &$failedRecipients = null)
     {
+        
         if ($message->getSubject() === 'Warning - error in TYPO3 installation' && isset($this->configuration['do_not_spool_syslog_messages']) && true === (bool) $this->configuration['do_not_spool_syslog_messages']) {
             return $this->getMailTransport()->send($message, $failedRecipients);
         }
@@ -92,7 +96,7 @@ class SpoolTransport extends \Swift_SpoolTransport
      */
     protected function getMailer()
     {
-        return GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\Mailer');
+        return GeneralUtility::makeInstance(Mailer::class);
     }
 
     /**
@@ -102,6 +106,6 @@ class SpoolTransport extends \Swift_SpoolTransport
      */
     protected function getSpoolFactory()
     {
-        return GeneralUtility::makeInstance('SUDHAUS7\\MailSpool\\Mail\\SpoolFactory');
+        return GeneralUtility::makeInstance(SpoolFactory::class);
     }
 }

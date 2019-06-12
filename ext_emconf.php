@@ -14,17 +14,17 @@ $EM_CONF[$_EXTKEY] = array(
     'title' => 'Mail Spool',
     'description' => 'Integrates swiftmailer spool transport for TYPO3.',
     'category' => 'misc',
-    'author' => 'R3 H6',
-    'author_email' => 'r3h6@outlook.com',
+    'author' => 'Frank Berger',
+    'author_email' => 'fberger@sudhaus7.de',
     'state' => 'stable',
     'internal' => '',
-    'uploadfolder' => '1',
+    'uploadfolder' => '',
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
-    'version' => '1.2.0',
+    'version' => '2.0.0',
     'constraints' => array(
         'depends' => array(
-            'typo3' => '6.2.0-9.99.99',
+            'typo3' => '8.7.0-9.99.99',
         ),
         'conflicts' => array(
         ),

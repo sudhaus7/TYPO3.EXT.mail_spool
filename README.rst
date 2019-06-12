@@ -6,20 +6,23 @@
 
 .. _start:
 
-.. image:: https://travis-ci.org/r3h6/TYPO3.EXT.mail_spool.svg?branch=master
-    :target: https://travis-ci.org/r3h6/TYPO3.EXT.mail_spool
 
 =============
 Documentation
 =============
 
-This extension integrates the swiftmailer spool transport for TYPO3.
+This is a Fork of https://github.com/r3h6/TYPO3.EXT.mail_spool
+
+This extension integrates the swiftmailer spool transport for TYPO3 v8 and v9.
+The Spool Command has been rewritten to use the Symfony Console, and in 'file' mode the spooled E-Mails are written to the result of Environment::getVarPath()
 
 
 Installation
 ------------
 
-Through `TER <https://typo3.org/extensions/repository/view/mail_spool/>`_ or with `composer <https://composer.typo3.org/satis.html#!/mail-spool>`_ (typo3-ter/mail-spool).
+.. Through `TER <https://typo3.org/extensions/repository/view/mail_spool/>`_ or with `composer <https://composer.typo3.org/satis.html#!/mail-spool>`_ (typo3-ter/mail-spool).
+
+With composer req sudhaus7/mail-spool
 
 .. warning::
    After installation this extension overwrites in the file "ext_localconf" the mail transport configuration to ``SUDHAUS7\MailSpool\Mail\SpoolTransport``!
@@ -37,8 +40,10 @@ You can configure the type of spool and the location where the messsages get sto
 
    **classname** Custom class which implements the Swift_Spool interface.
 
+   Planned are spoolers for RabbitMQ and Beanstalk
+
 :spool_file_path:
-   Path to directory where the spooled messages get stored. Should not be accessible from outside!
+   Path to directory relative to Environment::getVarPath() where the spooled messages get stored. Should not be accessible from outside!
 
 :transport_real:
    Transport used for sending e-mails. Default is same as defined in install tool.
@@ -55,7 +60,7 @@ If you are using the file spool, you must set up an extbase scheduler task or ex
 Scheduler
 ---------
 
-You can set up an extbase scheduler for sending the messages in the file spool queue.
+There is no direct Scheduler Option anymore, but the process can be scheduled with https://github.com/helhum/typo3-crontab
 
 .. warning::
    The option **daemon** is only for CLI usage.
@@ -64,7 +69,7 @@ You can set up an extbase scheduler for sending the messages in the file spool q
 Commands (CLI)
 ---------------
 
-See ``./typo3/cli_dispatch.phpsh extbase help spool:send`` for details.
+See ``./vendor/bin/typo3 mailspool:runspool -h`` for details.
 
 .. note::
    If you like run the command as a daemon on linux systems you can try `Upstart <https://en.wikipedia.org/wiki/Upstart>`_.
@@ -108,8 +113,4 @@ After installing, no e-mails get send anymore, why?
 Contributing
 ------------
 
-Bug reports and pull request are welcome through `GitHub <https://github.com/r3h6/TYPO3.EXT.mail_spool/>`_.
-
-Pull request
-^^^^^^^^^^^^
-Pull request to the master branch will be ignored. Please use develop branch.
+Bug reports and pull request are welcome through `GitHub <https://github.com/sudhaus7/TYPO3.EXT.mail_spool/>`_.

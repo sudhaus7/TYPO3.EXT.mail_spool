@@ -1,6 +1,7 @@
 {
     "name": "sudhaus7/mail-spool",
     "type": "typo3-cms-extension",
+    "version": "2.0.0",
     "description": "Integrates swiftmailer spool transport for TYPO3.",
     "keywords": [
         "TYPO3",
@@ -14,8 +15,9 @@
         "issues": "https://github.com/sudhaus7/TYPO3.EXT.mail_spool/issues"
     },
     "license": "GPL-3.0+",
+
     "require": {
-        "typo3/cms-core": "^9.5.0"
+        "typo3/cms-core": "^8.7.0 || ^9.5.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.0",
@@ -51,7 +53,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0.x-dev"
+            "dev-master": "2.0.x-dev"
         },
         "typo3/cms": {
             "cms-package-dir": "{$vendor-dir}/typo3/cms",

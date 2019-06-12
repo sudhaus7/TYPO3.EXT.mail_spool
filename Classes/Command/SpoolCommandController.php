@@ -15,32 +15,67 @@ namespace SUDHAUS7\MailSpool\Command;
  * Public License for more details.                                       *
  *                                                                        */
 
-use TYPO3\CMS\Extbase\Mvc\Controller\CommandController;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputOption;
+use TYPO3\CMS\Core\Mail\Mailer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
+use TYPO3\CMS\Core\Utility\MathUtility;
 
 /**
  * SpoolCommandController.
  *
  * @link https://github.com/symfony/swiftmailer-bundle/blob/master/Command/SendEmailCommand.php
  */
-class SpoolCommandController extends CommandController
+class SpoolCommandController extends Command
 {
+    
     /**
-     * Sends emails from the spool.
      *
-     * @param int  $messageLimit   The maximum number of messages to send.
-     * @param int  $timeLimit      The time limit for sending messages (in seconds).
-     * @param int  $recoverTimeout The timeout for recovering messages that have taken too long to send (in seconds).
-     * @param bool $daemon         True for running as daemon (EXPERIMENTAL, CLI ONLY!).
-     *
+     */
+    public function configure() {
+        
+        $this->setDescription('Sends emails from the spool');
+        $this->setHelp('');
+        $this->addOption('messageLimit','m',InputOption::VALUE_OPTIONAL,'The maximum number of messages to send',0)
+            ->addOption('timeLimit','t',InputOption::VALUE_OPTIONAL,'The time limit for sending messages (in seconds)',0)
+            ->addOption('recoverTimeout','r',InputOption::VALUE_OPTIONAL,'The timeout for recovering messages that have taken too long to send (in seconds)',null)
+            ->addOption('daemon','d',InputOption::VALUE_OPTIONAL,'True for running as daemon (EXPERIMENTAL, CLI ONLY!)',false);
+        
+    }
+    
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int|void|null
      * @throws \Exception
      */
-    public function sendCommand($messageLimit = null, $timeLimit = null, $recoverTimeout = null, $daemon = false)
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->outputLine(sprintf('<info>[%s]</info> Processing mailer... ', date('Y-m-d H:i:s')));
-
+        $io = new SymfonyStyle($input, $output);
+        $io->title($this->getDescription());
+    
+        $messageLimit = 0;
+        if($input->hasOption('messageLimit')) {
+            $messageLimit =  MathUtility::forceIntegerInRange((int)$input->getOption('messageLimit'), 0);
+        }
+        $timeLimit = 0;
+        if($input->hasOption('timeLimit')) {
+            $timeLimit =  MathUtility::forceIntegerInRange((int)$input->getOption('timeLimit'), 0);
+        }
+        $recoverTimeout = null;
+        if($input->hasOption('recoverTimeout')) {
+            $recoverTimeout = $input->getOption('recoverTimeout');
+        }
+        $daemon = false;
+        if($input->hasOption('daemon')) {
+            $daemon = (bool)$input->getOption('daemon');
+        }
+    
+    
         $mailer = $this->getMailer();
-
         $transport = $mailer->getTransport();
         if ($transport instanceof \SUDHAUS7\MailSpool\Mail\SpoolTransport) {
             $spool = $transport->getSpool();
@@ -56,24 +91,25 @@ class SpoolCommandController extends CommandController
                         $spool->recover();
                     }
                 }
-
+            
                 try {
                     $sent = $spool->flushQueue($transport->getRealTransport());
                 } catch (\Exception $exception) {
                     $message = $exception->getMessage();
-                    GeneralUtility::sysLog($message, 'mail_spool', GeneralUtility::SYSLOG_SEVERITY_ERROR);
-                    $GLOBALS['BE_USER']->writelog(4, 0, 2, 0, '[mail_spool]: '.$message, array());
-                    $this->getLogger()->error($message);
+                    $io->error($message);
                     throw $exception;
                 }
-
-                $this->outputLine(sprintf('<comment>%d</comment> emails sent', $sent));
+                if (!$io->isQuiet()) {
+                    $io->note(sprintf('%d emails sent', $sent));
+                }
             } while ($daemon && $this->idle());
         } else {
-            $this->outputLine('Transport is not a <info>Swift_Transport_SpoolTransport</info>.');
+            $io->error('Transport is not a Swift_Transport_SpoolTransport.');
         }
+        
     }
 
+    
     /**
      * Be idle for a while.
      *
@@ -93,14 +129,5 @@ class SpoolCommandController extends CommandController
     {
         return GeneralUtility::makeInstance(Mailer::class);
     }
-
-    /**
-     * Get class logger.
-     *
-     * @return \TYPO3\CMS\Core\Log\Logger
-     */
-    protected function getLogger()
-    {
-        return GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Log\\LogManager')->getLogger(__CLASS__);
-    }
+    
 }
