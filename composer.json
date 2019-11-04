@@ -1,7 +1,7 @@
 {
     "name": "sudhaus7/mail-spool",
     "type": "typo3-cms-extension",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "description": "Integrates swiftmailer spool transport for TYPO3.",
     "keywords": [
         "TYPO3",
